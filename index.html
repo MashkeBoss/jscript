@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Таблица случайных чисел</h1>
+    
+    <div id="tableContainer">
+    </div>
+    
+    <button onclick="addRandomNumber()">Добавить число</button>
+
+    <script>
+        let numbersArray = [];
+        for (let i = 0; i < 30; i++) {
+            numbersArray.push(Math.floor(Math.random() * 100));
+        }
+        
+        function createTable() {
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = '';
+            
+            const table = document.createElement('table');
+            table.setAttribute('border', '1');
+            table.style.borderCollapse = 'collapse';
+            table.style.width = '100%';
+            table.style.textAlign = 'center';
+            
+            let index = 0;
+            for (let row = 0; row < 5; row++) {
+                const tr = document.createElement('tr');
+                
+                for (let col = 0; col < 6; col++) {
+                    const td = document.createElement('td');
+                    td.style.padding = '10px';
+                    
+                    if (index < numbersArray.length) {
+                        const number = numbersArray[index];
+                        td.textContent = number;
+                        
+                        if (number >= 50) {
+                            td.style.backgroundColor = 'orange';
+                        }
+                        
+                        index++;
+                    }
+                    
+                    tr.appendChild(td);
+                }
+                
+                table.appendChild(tr);
+            }
+            
+            tableContainer.appendChild(table);
+        }
+        
+        function addRandomNumber() {
+            const newNumber = Math.floor(Math.random() * 100);
+            
+            numbersArray.push(newNumber);
+            
+            recreateTableWithNewNumber();
+        }
+        
+        function recreateTableWithNewNumber() {
+            const tableContainer = document.getElementById('tableContainer');
+            tableContainer.innerHTML = '';
+            
+
+            const table = document.createElement('table');
+            table.setAttribute('border', '1');
+            table.style.borderCollapse = 'collapse';
+            table.style.width = '100%';
+            table.style.textAlign = 'center';
+            
+            let index = 0;
+
+            const rows = Math.ceil(numbersArray.length / 6);
+            
+            for (let row = 0; row < rows; row++) {
+                const tr = document.createElement('tr');
+                
+                for (let col = 0; col < 6; col++) {
+                    const td = document.createElement('td');
+                    td.style.padding = '10px';
+                    
+                    if (index < numbersArray.length) {
+                        const number = numbersArray[index];
+                        td.textContent = number;
+                        
+
+                        if (number >= 50) {
+                            td.style.backgroundColor = 'orange';
+                        }
+                        
+                        index++;
+                    } else {
+                        td.textContent = '';
+                    }
+                    
+                    tr.appendChild(td);
+                }
+                
+                table.appendChild(tr);
+            }
+            
+            tableContainer.appendChild(table);
+        }
+        
+        createTable();
+    </script>
+</body>
+</html>
